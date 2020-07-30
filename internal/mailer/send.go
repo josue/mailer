@@ -19,8 +19,8 @@ func NewEmailSender() *EmailSender {
 	return &EmailSender{SendMail: smtp.SendMail}
 }
 
-// validate all inputs
-func (e EmailSender) validate() error {
+// validate server inputs
+func (e EmailSender) validateServer() error {
 	if e.Server.GetFullAddress() == "" {
 		return errors.New("Missing server address/port")
 	}
@@ -30,6 +30,12 @@ func (e EmailSender) validate() error {
 	if e.Server.GetPassword() == "" {
 		return errors.New("Missing server password")
 	}
+
+	return nil
+}
+
+// validate email inputs
+func (e EmailSender) validateEmail() error {
 	if e.Email.FromAddress == "" {
 		return errors.New("Missing email FromAddress")
 	}
@@ -58,8 +64,13 @@ func (e EmailSender) buildMessage() []string {
 
 // SendMessage constructs inputs from server/email and send the email message or returns error
 func (e EmailSender) SendMessage() error {
-	// validate
-	err := e.validate()
+	// validate server
+	err := e.validateServer()
+	if err != nil {
+		return err
+	}
+	// validate email
+	err = e.validateEmail()
 	if err != nil {
 		return err
 	}
