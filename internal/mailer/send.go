@@ -1,10 +1,14 @@
 package mailer
 
 import (
-	"errors"
 	"fmt"
 	"net/smtp"
 	"strings"
+)
+
+const (
+	missingServerPrefix = "Missing server %v"
+	missingEmailPrefix  = "Missing email %v"
 )
 
 // EmailSender struct to construct a mailer instance with server/email inputs
@@ -22,13 +26,13 @@ func NewEmailSender() *EmailSender {
 // validate server inputs
 func (e EmailSender) validateServer() error {
 	if e.Server.GetFullAddress() == "" {
-		return errors.New("Missing server address/port")
+		return fmt.Errorf(missingServerPrefix, "address/port")
 	}
 	if e.Server.GetUsername() == "" {
-		return errors.New("Missing server username")
+		return fmt.Errorf(missingServerPrefix, "username")
 	}
 	if e.Server.GetPassword() == "" {
-		return errors.New("Missing server password")
+		return fmt.Errorf(missingServerPrefix, "password")
 	}
 
 	return nil
@@ -37,16 +41,16 @@ func (e EmailSender) validateServer() error {
 // validate email inputs
 func (e EmailSender) validateEmail() error {
 	if e.Email.FromAddress == "" {
-		return errors.New("Missing email FromAddress")
+		return fmt.Errorf(missingEmailPrefix, "FromAddress")
 	}
 	if e.Email.ToAddress == "" {
-		return errors.New("Missing email ToAddress")
+		return fmt.Errorf(missingEmailPrefix, "ToAddress")
 	}
 	if e.Email.Subject == "" {
-		return errors.New("Missing email Subject")
+		return fmt.Errorf(missingEmailPrefix, "Subject")
 	}
 	if e.Email.Body == "" {
-		return errors.New("Missing email Body")
+		return fmt.Errorf(missingEmailPrefix, "Body")
 	}
 
 	return nil
@@ -54,11 +58,12 @@ func (e EmailSender) validateEmail() error {
 
 // creates the full message payload
 func (e EmailSender) buildMessage() []string {
-	msg := []string{}
-	msg = append(msg, fmt.Sprintf("From: %v\n", e.Email.FromAddress))
-	msg = append(msg, fmt.Sprintf("To: %v\n", e.Email.ToAddress))
-	msg = append(msg, fmt.Sprintf("Subject: %v\n\n", e.Email.Subject))
-	msg = append(msg, e.Email.Body)
+	msg := []string{
+		fmt.Sprintf("From: %v\n", e.Email.FromAddress),
+		fmt.Sprintf("To: %v\n", e.Email.ToAddress),
+		fmt.Sprintf("Subject: %v\n\n", e.Email.Subject),
+		e.Email.Body,
+	}
 	return msg
 }
 
