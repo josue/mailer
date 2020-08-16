@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"mailer/internal/mailer"
+	"github.com/josue/mailer/internal/mailer"
 )
 
 func main() {
