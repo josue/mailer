@@ -19,7 +19,7 @@ func TestSendMessageMissingServerAddressPort(t *testing.T) {
 	sender := EmailSender{Server: server, Email: email}
 	err := sender.SendMessage()
 
-	if !strings.Contains(err.Error(), "Missing server address/port") {
+	if !strings.Contains(err.Error(), "missing server address/port") {
 		t.Errorf("Should be missing server address/port, got instead %v", err)
 	}
 }
@@ -30,7 +30,7 @@ func TestSendMessageMissingServerUsername(t *testing.T) {
 	sender := EmailSender{Server: server, Email: email}
 	err := sender.SendMessage()
 
-	if !strings.Contains(err.Error(), "Missing server username") {
+	if !strings.Contains(err.Error(), "missing server username") {
 		t.Errorf("Should be missing server username, got instead %v", err)
 	}
 }
@@ -41,7 +41,7 @@ func TestSendMessageMissingServerPassword(t *testing.T) {
 	sender := EmailSender{Server: server, Email: email}
 	err := sender.SendMessage()
 
-	if !strings.Contains(err.Error(), "Missing server password") {
+	if !strings.Contains(err.Error(), "missing server password") {
 		t.Errorf("Should be missing server password, got instead %v", err)
 	}
 }
@@ -52,7 +52,7 @@ func TestSendMessageMissingFromAddress(t *testing.T) {
 	sender := EmailSender{Server: server, Email: email}
 	err := sender.SendMessage()
 
-	if !strings.Contains(err.Error(), "Missing email FromAddress") {
+	if !strings.Contains(err.Error(), "missing email FromAddress") {
 		t.Errorf("Should be missing email.FromAddress, got instead %v", err)
 	}
 }
@@ -63,7 +63,7 @@ func TestSendMessageMissingToAddress(t *testing.T) {
 	sender := EmailSender{Server: server, Email: email}
 	err := sender.SendMessage()
 
-	if !strings.Contains(err.Error(), "Missing email ToAddress") {
+	if !strings.Contains(err.Error(), "missing email ToAddress") {
 		t.Errorf("Should be missing email ToAddress, got instead %v", err)
 	}
 }
@@ -77,7 +77,7 @@ func TestSendMessageMissingSubject(t *testing.T) {
 	sender := EmailSender{Server: server, Email: email}
 	err := sender.SendMessage()
 
-	if !strings.Contains(err.Error(), "Missing email Subject") {
+	if !strings.Contains(err.Error(), "missing email Subject") {
 		t.Errorf("Should be missing email Subject, got instead %v", err)
 	}
 }
@@ -92,7 +92,7 @@ func TestSendMessageMissingBody(t *testing.T) {
 	sender := EmailSender{Server: server, Email: email}
 	err := sender.SendMessage()
 
-	if !strings.Contains(err.Error(), "Missing email Body") {
+	if !strings.Contains(err.Error(), "missing email Body") {
 		t.Errorf("Should be missing email Body, got instead %v", err)
 	}
 }

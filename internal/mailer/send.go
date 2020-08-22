@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	missingServerPrefix = "Missing server %v"
-	missingEmailPrefix  = "Missing email %v"
+	missingServerPrefix = "missing server %v"
+	missingEmailPrefix  = "missing email %v"
 )
 
 // EmailSender struct to construct a mailer instance with server/email inputs
